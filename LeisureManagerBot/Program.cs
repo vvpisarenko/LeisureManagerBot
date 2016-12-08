@@ -13,6 +13,7 @@ namespace LeisureManagerBot
             Console.WriteLine("blablabla");
             Console.WriteLine("blablabla");
             Console.WriteLine("54543");
+            Console.WriteLine("54543");
             Console.ReadLine();
         }
     }
