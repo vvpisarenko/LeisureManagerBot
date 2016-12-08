@@ -11,6 +11,7 @@ namespace LeisureManagerBot
         static void Main(string[] args)
         {
             Console.WriteLine("blablabla");
+            Console.WriteLine("blablabla");
             Console.WriteLine("54543");
             Console.ReadLine();
         }
