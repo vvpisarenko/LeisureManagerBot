@@ -22,7 +22,7 @@ namespace Telegram.Bot
             try
             {
                 var bot = await Bot.GetMeAsync();
-                Console.WriteLine("Hello my name is {0}", bot.Username);
+                Console.WriteLine("Hello, my name is {0}", bot.Username);
             }
             catch { };
             var rkm = new ReplyKeyboardMarkup();
