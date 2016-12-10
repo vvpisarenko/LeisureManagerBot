@@ -27,8 +27,8 @@ namespace Telegram.Bot
             catch { };
             var rkm = new ReplyKeyboardMarkup();
 
-            string city = "Москва";
-            string url = "https://api.timepad.ru/v1/events.json?limit=25&skip=0&cities=" + city;
+           
+          /*  string url = "https://api.timepad.ru/v1/events.json?limit=25&skip=0&cities=Москва";
             string str;
 
             using (var webClient = new WebClient())
@@ -40,7 +40,8 @@ namespace Telegram.Bot
             byte[] bytes = Encoding.Default.GetBytes(str);
             str = Encoding.UTF8.GetString(bytes);
 
-            RootObject account = JsonConvert.DeserializeObject<RootObject>(str);
+            RootObject account = JsonConvert.DeserializeObject<RootObject>(str);*/
+
         }
 
     }
