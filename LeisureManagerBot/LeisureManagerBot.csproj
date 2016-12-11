@@ -58,16 +58,65 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="КнигиDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>КнигиDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ФильмыDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ФильмыDataSet.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="КнигиDataSet.xsc">
+      <DependentUpon>КнигиDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="КнигиDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>КнигиDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="КнигиDataSet.xss">
+      <DependentUpon>КнигиDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ФильмыDataSet.xsc">
+      <DependentUpon>ФильмыDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ФильмыDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ФильмыDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ФильмыDataSet.xss">
+      <DependentUpon>ФильмыDataSet.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassLibraryBot\ClassLibraryBot.csproj">
       <Project>{a61d1afe-b067-484e-8d4c-cb28800406f2}</Project>
       <Name>ClassLibraryBot</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Книги.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Фильмы.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
