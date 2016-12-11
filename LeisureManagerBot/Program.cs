@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -34,7 +35,68 @@ namespace Telegram.Bot
             RootObject account = pero.Get();
            
             var offset = 0;
-            
+
+
+            int z, x, y = 0;
+
+            string[] name = new string[100];
+            string[] description = new string[100];
+            string[] author = new string[100];
+
+            string[] filmname = new string[101];
+            string[] filmdescription = new string[101];
+            string[] genre = new string[101];
+
+            using (OleDbConnection connection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Книги.mdb;"))
+            {
+
+                OleDbCommand c = new OleDbCommand("SELECT * FROM Зарубежная", connection);
+
+                connection.Open();
+                OleDbDataReader r = c.ExecuteReader();
+
+
+
+                name[0] = r.GetName(0) + "\t" + r.GetName(1) + "\t" + r.GetName(2);
+                int i = 1;
+                while (r.Read())
+                {
+                    name[i] = r[0].ToString();
+                    description[i] = r[1].ToString();
+                    author[i] = r[2].ToString();
+                    i = i + 1;
+                }
+
+                z = i;
+
+                OleDbCommand c1 = new OleDbCommand("SELECT * FROM Русская", connection);
+                OleDbDataReader r1 = c1.ExecuteReader();
+                while (r1.Read())
+                {
+                    name[i] = r1[0].ToString();
+                    description[i] = r1[1].ToString();
+                    author[i] = r1[2].ToString();
+                    i = i + 1;
+                }
+
+                x = i;
+
+                OleDbCommand c2 = new OleDbCommand("SELECT * FROM Фантастика", connection);
+                OleDbDataReader r2 = c2.ExecuteReader();
+                while (r2.Read())
+                {
+
+                    name[i] = r2[0].ToString();
+                    description[i] = r2[1].ToString();
+                    author[i] = r2[2].ToString();
+                    i = i + 1;
+                }
+
+                y = i;
+
+                connection.Close();
+            }
+
             while (true)
             {
                 var updates = await Bot.GetUpdatesAsync(offset);
