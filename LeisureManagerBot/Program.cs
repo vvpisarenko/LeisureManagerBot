@@ -97,6 +97,27 @@ namespace Telegram.Bot
                 connection.Close();
             }
 
+            using (OleDbConnection connection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Фильмы.mdb;"))
+            {
+
+                OleDbCommand c = new OleDbCommand("SELECT * FROM Фильмы", connection);
+
+                connection.Open();
+                OleDbDataReader r = c.ExecuteReader();
+
+                filmname[0] = r.GetName(0) + "\t" + r.GetName(1) + "\t" + r.GetName(2);
+                int i = 1;
+                while (r.Read())
+                {
+                    filmname[i] = r[0].ToString();
+                    filmdescription[i] = r[1].ToString();
+                    genre[i] = r[2].ToString();
+                    i = i + 1;
+                }
+
+                connection.Close();
+            }
+
             while (true)
             {
                 var updates = await Bot.GetUpdatesAsync(offset);
