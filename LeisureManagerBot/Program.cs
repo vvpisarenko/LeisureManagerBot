@@ -1,4 +1,5 @@
 ﻿using ClassLibraryBot;
+using LeisureManagerBot;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,12 @@ namespace Telegram.Bot
         static void Main(string[] args)
         {
             Run().Wait();
+            Console.WriteLine("aaaaaa");
+            Console.ReadLine();
             
         }
+
+
         static async Task Run()
         {
             var Bot = new TelegramBotClient("306835183:AAHQLsRrPzOeDfHhQvlOOYi0X5kRJke7ngg");
