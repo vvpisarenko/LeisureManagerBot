@@ -17,10 +17,10 @@ namespace Telegram.Bot
         static void Main(string[] args)
         {
             Run().Wait();
-            
+
         }
 
-         
+
         static async Task Run()
         {
             var Bot = new TelegramBotClient("306835183:AAHQLsRrPzOeDfHhQvlOOYi0X5kRJke7ngg");
@@ -33,7 +33,7 @@ namespace Telegram.Bot
             var rkm = new ReplyKeyboardMarkup();
             var pero = new Repository();
             RootObject account = pero.Get();
-           
+
             var offset = 0;
 
 
@@ -118,6 +118,12 @@ namespace Telegram.Bot
                 connection.Close();
             }
 
+            string[] eventname = new string[25];
+            string[] categories = new string[25];
+            string[] urls = new string[25];
+
+            int k = 0;
+
             while (true)
             {
                 var updates = await Bot.GetUpdatesAsync(offset);
@@ -165,8 +171,42 @@ namespace Telegram.Bot
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
-                        offset = update.Id + 1;
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/concerts")
+                        {
+                            for (int i = 0; i < 25; i++)
+                            {
+                                if (account.values[i].categories[0].name == "Концерты")
+                                {
+                                    eventname[k] = account.values[i].name;
+                                    categories[k] = account.values[i].categories[0].name;
+                                    urls[k] = account.values[i].url;
+                                    k = k + 1;
+                                }
+                            }
+
+                            if (k > 0)
+                            {
+
+                                Random concert = new Random();
+                                int con = concert.Next(k - 1);
+
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[con] + "\n" + "\n" + "Вид: " + categories[con] + "\n" + "\n" + urls[con]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/concerts" + " - \uD83C\uDFA4 Концерты" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+
+                            }
+                            else
+                            {
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
+
+                        }
+                        
+                    }
+                    offset = update.Id + 1;
                 }
+                await Task.Delay(1000);
             }
         }
     }

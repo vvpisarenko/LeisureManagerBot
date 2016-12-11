@@ -12,16 +12,13 @@ namespace ClassLibraryBot
     {
         const string url = "https://api.timepad.ru/v1/events.json?limit=25&skip=0&cities=Москва";
         
-        /*   private string MakeQuery(string q)
-            {
-                return url;
-            }*/
         public RootObject Get()
         {
-            //var url1 = url;
+            string str;
             using (var webClient = new WebClient())
             {
-                var JsonResult = webClient.DownloadString(url);
+                str = webClient.DownloadString(url);
+                var JsonResult = Encoding.UTF8.GetString(Encoding.Default.GetBytes(str));
                 var items = JsonConvert.DeserializeObject<RootObject>(JsonResult);
                 return items;
             }
