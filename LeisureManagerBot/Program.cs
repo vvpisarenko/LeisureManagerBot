@@ -167,11 +167,31 @@ namespace Telegram.Bot
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
                             await Task.Delay(2000);
 
-                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/concerts" + " - \uD83C\uDFA4 Концерты" + "\n" + "\n" + "/theatres" + " - \uD83C\uDFAD Театры" + "\n" + "\n" + "/sport" + " - \uD83C\uDFC8 Спорт" + "\n" + "\n" + "/artsandculture" + " - \uD83C\uDFA8 Искусство и Культура" + "\n" + "\n" + "/another" + " - \u2728 Другое");
+                            rkm.OneTimeKeyboard = true;
+                            rkm.Keyboard = new KeyboardButton[][]
+
+                                {
+                                        new KeyboardButton[]
+                                        {
+                                            new KeyboardButton("\uD83C\uDFA4"),
+                                            new KeyboardButton( "\uD83C\uDFAD"),
+                                            new KeyboardButton( "\uD83C\uDFC8")
+                                        },
+
+                                        new KeyboardButton[]
+                                        {
+                                            new KeyboardButton( "\uD83C\uDFA8"),
+                                            new KeyboardButton( "Another"),
+                                           new KeyboardButton("\u27A1" + "Restart")
+
+                                        }
+                                };
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/concerts" + " - \uD83C\uDFA4 Концерты" + "\n" + "\n" + "/theatres" + " - \uD83C\uDFAD Театры" + "\n" + "\n" + "/sport" + " - \uD83C\uDFC8 Спорт" + "\n" + "\n" + "/artsandculture" + " - \uD83C\uDFA8 Искусство и Культура" + "\n" + "\n" + "/another" + " - \u2728 Другое", false, false, 0, rkm);
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
-                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/concerts")
+
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "/concerts" || update.Message.Text == "\uD83C\uDFA4"))
                         {
                             for (int i = 0; i < 25; i++)
                             {
