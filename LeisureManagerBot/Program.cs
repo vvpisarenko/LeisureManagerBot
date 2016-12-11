@@ -31,20 +31,8 @@ namespace Telegram.Bot
             catch { };
             var rkm = new ReplyKeyboardMarkup();
             var pero = new Repository();
-
-            /*  string url = "https://api.timepad.ru/v1/events.json?limit=25&skip=0&cities=Москва";
-              string str;
-
-              using (var webClient = new WebClient())
-              {
-
-                  str = webClient.DownloadString(url);
-              }
-
-              byte[] bytes = Encoding.Default.GetBytes(str);
-              str = Encoding.UTF8.GetString(bytes);
-
-              RootObject account = JsonConvert.DeserializeObject<RootObject>(str);*/
+            RootObject account = pero.Get();
+           
             var offset = 0;
             
             while (true)
