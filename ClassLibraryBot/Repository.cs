@@ -12,7 +12,8 @@ namespace LeisureManagerBot
    public class Repository
     {
        const string url = "https://api.timepad.ru/v1/events.json?limit=25&skip=0&cities=Москва";
-
+        public Repository()
+        { }
 
         /*   private string MakeQuery(string q)
             {
