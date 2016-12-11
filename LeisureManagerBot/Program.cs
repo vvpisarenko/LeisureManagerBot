@@ -152,7 +152,20 @@ namespace Telegram.Bot
 
                         Console.WriteLine("Message: {0}", update.Message.Text);
                     }
-                    offset = update.Id + 1;
+                    else
+                    {
+
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "\uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Events from TimePad" || update.Message.Text == "/events"))
+                        {
+
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
+                            await Task.Delay(2000);
+
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/concerts" + " - \uD83C\uDFA4 Концерты" + "\n" + "\n" + "/theatres" + " - \uD83C\uDFAD Театры" + "\n" + "\n" + "/sport" + " - \uD83C\uDFC8 Спорт" + "\n" + "\n" + "/artsandculture" + " - \uD83C\uDFA8 Искусство и Культура" + "\n" + "\n" + "/another" + " - \u2728 Другое");
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
+                        }
+                        offset = update.Id + 1;
                 }
             }
         }
