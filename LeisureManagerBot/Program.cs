@@ -222,9 +222,45 @@ namespace Telegram.Bot
                             Console.WriteLine("Message: {0}", update.Message.Text);
 
                         }
-                        
-                    }
-                    offset = update.Id + 1;
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "\uD83D\uDCDA" + "Books" || update.Message.Text == "/books"))
+                        {
+
+                        }
+
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/foreign")
+                        {
+
+                        }
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/russian")
+                        {
+
+                        }
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/fantastic")
+                        {
+
+                        }
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "\uD83C\uDFA5" + "Films" || update.Message.Text == "/films"))
+                        {
+
+                        }
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/drama")
+                        {
+
+                        }
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/comedy")
+                        {
+
+                        }
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/thriller")
+                        {
+
+                        }
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/anothergenre")
+                        {
+
+                        }
+
+                            offset = update.Id + 1;
                 }
                 await Task.Delay(1000);
             }
