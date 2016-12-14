@@ -301,6 +301,41 @@ namespace Telegram.Bot
 
                             await Task.Delay(2000);
 
+
+                            string[] filmname1 = new string[101];
+                            string[] genre1 = new string[101];
+                            string[] filmdescription1 = new string[101];
+
+                            int q = 0;
+
+                            for (int i = 1; i < 101; i++)
+                            {
+                                if (genre[i].Contains("драма") == true || genre[i].Contains("Драма") == true)
+                                {
+                                    filmname1[q] = filmname[i];
+                                    genre1[q] = genre[i];
+                                    filmdescription1[q] = filmdescription[i];
+                                    q = q + 1;
+                                }
+
+                            }
+
+                            if (q > 0)
+                            {
+                                Random drama = new Random();
+                                int d = drama.Next(q - 1);
+
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + filmname1[d]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Жанр: " + genre1[d]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + filmdescription1[d]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/drama - \uD83D\uDE22 choose another drama" + "\n" + "\n" + "/films - \uD83C\uDFA5 choose another films" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
+
+                            else
+                            {
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
+
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/comedy")
