@@ -235,38 +235,73 @@ namespace Telegram.Bot
 
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/foreign")
                         {
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
+
+                            await Task.Delay(2000);
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
 
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/russian")
                         {
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
+                            await Task.Delay(2000);
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/fantastic")
                         {
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
+                            await Task.Delay(2000);
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "\uD83C\uDFA5" + "Films" || update.Message.Text == "/films"))
                         {
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
+                            await Task.Delay(2000);
+
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/drama" + " - \uD83D\uDE22 Драма" + "\n" + "\n" + "/comedy" + " - \uD83D\uDE06 Комедия" + "\n" + "\n" + "/thriller" + " - \uD83D\uDCA3 Боевик" + "\n" + "\n" + "/anothergenre" + " - Другой жанр");
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/drama")
                         {
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
+                            await Task.Delay(2000);
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/comedy")
                         {
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
+                            await Task.Delay(2000);
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/thriller")
                         {
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
+                            await Task.Delay(2000);
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/anothergenre")
                         {
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
+                            await Task.Delay(2000);
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
                         }
-
-                            offset = update.Id + 1;
+                    }
+                   offset = update.Id + 1;
                 }
                 await Task.Delay(1000);
             }
