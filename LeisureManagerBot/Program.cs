@@ -238,6 +238,15 @@ namespace Telegram.Bot
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
                             await Task.Delay(2000);
+                            Random rand = new Random();
+                            int num = rand.Next(z);
+
+
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + name[num]);
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Автор: " + author[num]);
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + description[num]);
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/foreign" + " - зарубежная классика" + "\n" + "\n" + "/books - \uD83D\uDCDA choose another books" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
 
@@ -248,6 +257,15 @@ namespace Telegram.Bot
 
                             await Task.Delay(2000);
 
+                            Random rand = new Random();
+                            int num = rand.Next(z, x);
+
+
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + name[num]);
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Автор: " + author[num]);
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + description[num]);
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/russian" + " - \uD83C\uDDF7 русская классика" + "\n" + "\n" + "/books - \uD83D\uDCDA choose another books" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/fantastic")
@@ -255,6 +273,15 @@ namespace Telegram.Bot
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
                             await Task.Delay(2000);
+
+                            Random rand = new Random();
+                            int num = rand.Next(x, y);
+
+
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + name[num]);
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Автор: " + author[num]);
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + description[num]);
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/fantastic" + " - \u2728 фантастика" + "\n" + "\n" + "/books - \uD83D\uDCDA choose another books" + "\n" + "\n" + "/start - \u27A1 return to main menu");
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
