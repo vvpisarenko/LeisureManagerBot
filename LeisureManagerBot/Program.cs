@@ -343,7 +343,39 @@ namespace Telegram.Bot
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
                             await Task.Delay(2000);
+                            string[] filmname2 = new string[101];
+                            string[] genre2 = new string[101];
+                            string[] filmdescription2 = new string[101];
 
+                            int q = 0;
+
+                            for (int i = 1; i < 101; i++)
+                            {
+                                if (genre[i].Contains("Комедия") == true || genre[i].Contains("комедия") == true)
+                                {
+                                    filmname2[q] = filmname[i];
+                                    genre2[q] = genre[i];
+                                    filmdescription2[q] = filmdescription[i];
+                                    q = q + 1;
+                                }
+
+                            }
+
+                            if (q > 0)
+                            {
+                                Random comedy = new Random();
+                                int c = comedy.Next(q - 1);
+
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + filmname2[c]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Жанр: " + genre2[c]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + filmdescription2[c]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/comedy - \uD83D\uDE06 choose another comedy" + "\n" + "\n" + "/films - \uD83C\uDFA5 choose another films" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
+
+                            else
+                            {
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/thriller")
