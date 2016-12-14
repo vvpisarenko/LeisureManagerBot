@@ -212,7 +212,39 @@ namespace Telegram.Bot
 
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[con] + "\n" + "\n" + "Вид: " + categories[con] + "\n" + "\n" + urls[con]);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/concerts" + " - \uD83C\uDFA4 Концерты" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                k = 0;
+                            }
+                            else
+                            {
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
 
+                            Console.WriteLine("Message: {0}", update.Message.Text);
+
+                        }
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/theatres")
+                        {                            
+                            for (int i = 0; i < 25; i++)
+                            {
+
+
+                                if (account.values[i].categories[0].name == "Театры")
+                                {
+                                    eventname[k] = account.values[i].name;
+                                    categories[k] = account.values[i].categories[0].name;
+                                    urls[k] = account.values[i].url;
+                                    k = k + 1;
+                                }
+                            }
+                            if (k > 0)
+                            {
+
+                                Random theatre = new Random();
+                                int the = theatre.Next(k - 1);
+
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[the] + "\n" + "\n" + "Вид: " + categories[the] + "\n" + "\n" + urls[the]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/theatres" + " - \uD83C\uDFAD Театры" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                k = 0;
                             }
                             else
                             {
