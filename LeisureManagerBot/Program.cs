@@ -224,7 +224,13 @@ namespace Telegram.Bot
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "\uD83D\uDCDA" + "Books" || update.Message.Text == "/books"))
                         {
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
+                            await Task.Delay(2000);
+
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/russian" + " - \uD83C\uDDF7 русская классика" + "\n" + "\n" + "/foreign" + " -  зарубежная классика" + "\n" + "\n" + "/fantastic" + " - \u2728 фантастика");
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
                         }
 
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/foreign")
