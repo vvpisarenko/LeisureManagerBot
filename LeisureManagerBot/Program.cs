@@ -462,6 +462,41 @@ namespace Telegram.Bot
 
                             await Task.Delay(2000);
 
+                            string[] filmname4 = new string[101];
+                            string[] genre4 = new string[101];
+                            string[] filmdescription4 = new string[101];
+
+                            int q = 0;
+
+                            for (int i = 1; i < 101; i++)
+                            {
+                                if (genre[i].Contains("Комедия") != true && genre[i].Contains("комедия") != true && genre[i].Contains("Боевик") != true && genre[i].Contains("боевик") != true
+                                    && genre[i].Contains("драма") != true && genre[i].Contains("Драма") != true && genre[i].Contains("триллер") != true && genre[i].Contains("Триллер") != true)
+                                {
+                                    filmname4[q] = filmname[i];
+                                    genre4[q] = genre[i];
+                                    filmdescription4[q] = filmdescription[i];
+                                    q = q + 1;
+                                }
+
+                            }
+
+                            if (q > 0)
+                            {
+                                Random anothergenre = new Random();
+                                int a = anothergenre.Next(q - 1);
+
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + filmname4[a]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Жанр: " + genre4[a]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + filmdescription4[a]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/anothergenre -  choose another anothergenre" + "\n" + "\n" + "/films - \uD83C\uDFA5 choose another films" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
+
+                            else
+                            {
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
+
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
                     }
