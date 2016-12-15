@@ -222,7 +222,7 @@ namespace Telegram.Bot
                             Console.WriteLine("Message: {0}", update.Message.Text);
 
                         }
-                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/theatres")
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "/theatres" || update.Message.Text == "\uD83C\uDFAD"))
                         {                            
                             for (int i = 0; i < 25; i++)
                             {
@@ -246,6 +246,85 @@ namespace Telegram.Bot
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/theatres" + " - \uD83C\uDFAD Театры" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
                                 k = 0;
                             }
+                            else
+                            {
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
+
+                        }
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "/sport"|| update.Message.Text=="\uD83C\uDFC8"))
+                        {
+
+                            string[] eventname = new string[25];
+                            string[] categories = new string[25];
+                            string[] urls = new string[25];
+
+                            int k = 0;
+
+                            for (int i = 0; i < 25; i++)
+                            {
+
+
+                                if (account.values[i].categories[0].name == "Спорт")
+                                {
+                                    eventname[k] = account.values[i].name;
+                                    categories[k] = account.values[i].categories[0].name;
+                                    urls[k] = account.values[i].url;
+                                    k = k + 1;
+                                }
+                            }
+
+                            if (k > 0)
+                            {
+                                Random sport = new Random();
+                                int spo = sport.Next(k - 1);
+
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[spo] + "\n" + "\n" + "Вид: " + categories[spo] + "\n" + "\n" + urls[spo]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/sport" + " - \uD83C\uDFC8 Спорт" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
+
+                            else
+                            {
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
+
+                        }
+
+
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "/artsandculture" || update.Message.Text == "\uD83C\uDFA8"))
+                        {
+
+                            string[] eventname = new string[25];
+                            string[] categories = new string[25];
+                            string[] urls = new string[25];
+
+                            int k = 0;
+
+                            for (int i = 0; i < 25; i++)
+                            {
+
+
+                                if (account.values[i].categories[0].name == "Искусство и культура")
+                                {
+                                    eventname[k] = account.values[i].name;
+                                    categories[k] = account.values[i].categories[0].name;
+                                    urls[k] = account.values[i].url;
+                                    k = k + 1;
+                                }
+                            }
+                            if (k > 0)
+                            {
+                                Random arts = new Random();
+                                int a = arts.Next(k - 1);
+
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[a] + "\n" + "\n" + "Вид: " + categories[a] + "\n" + "\n" + urls[a]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/artsandculture" + " - \uD83C\uDFA8 Искусство и Культура" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
+
                             else
                             {
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
