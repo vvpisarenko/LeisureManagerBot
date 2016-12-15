@@ -410,14 +410,52 @@ namespace Telegram.Bot
                             }
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
+
+
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/thriller")
                         {
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
                             await Task.Delay(2000);
 
+                            string[] filmname3 = new string[101];
+                            string[] genre3 = new string[101];
+                            string[] filmdescription3 = new string[101];
+
+                            int q = 0;
+
+                            for (int i = 1; i < 101; i++)
+                            {
+                                if (genre[i].Contains("Боевик") == true || genre[i].Contains("боевик") == true || genre[i].Contains("триллер") == true || genre[i].Contains("Триллер") == true)
+                                {
+                                    filmname3[q] = filmname[i];
+                                    genre3[q] = genre[i];
+                                    filmdescription3[q] = filmdescription[i];
+                                    q = q + 1;
+                                }
+
+                            }
+
+                            if (q > 0)
+                            {
+                                Random thriller = new Random();
+                                int t = thriller.Next(q - 1);
+
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + filmname3[t]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Жанр: " + genre3[t]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + filmdescription3[t]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/thriller - \uD83D\uDCA3 choose another thriller" + "\n" + "\n" + "/films - \uD83C\uDFA5 choose another films" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
+
+                            else
+                            {
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                            }
+
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
+
+
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/anothergenre")
                         {
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
