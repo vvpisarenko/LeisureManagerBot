@@ -19,7 +19,29 @@ namespace Telegram.Bot
             Run().Wait();
 
         }
+        //static void KeyBoardEvents()
+        //{
+        //    var rkmev = new ReplyKeyboardMarkup();
+        //    rkmev.OneTimeKeyboard = true;
+        //    rkmev.Keyboard = new KeyboardButton[][]
 
+        //        {
+        //                                new KeyboardButton[]
+        //                                {
+        //                                    new KeyboardButton("\uD83C\uDFA4"),
+        //                                    new KeyboardButton( "\uD83C\uDFAD"),
+        //                                    new KeyboardButton( "\uD83C\uDFC8")
+        //                                },
+
+        //                                new KeyboardButton[]
+        //                                {
+        //                                    new KeyboardButton( "\uD83C\uDFA8"),
+        //                                    new KeyboardButton( "Another"),
+        //                                   new KeyboardButton("\u27A1" + "Restart")
+
+        //                                }
+        //        };
+        //}
 
         static async Task Run()
         {
@@ -117,7 +139,7 @@ namespace Telegram.Bot
 
                 connection.Close();
             }
-
+            
             string[] eventname = new string[25];
             string[] categories = new string[25];
             string[] urls = new string[25];
@@ -154,6 +176,7 @@ namespace Telegram.Bot
 
                                         }
                                 };
+
                         await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Здравствуйте! \u263A Для продолжения выберите желаемый вариант проведения досуга, и бот предоставит вам его. \u2611 На ваш выбор - книги, фильмы или же различные мероприятия с TimePad. ", false, false, 0, rkm);
 
                         Console.WriteLine("Message: {0}", update.Message.Text);
@@ -163,28 +186,27 @@ namespace Telegram.Bot
 
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "\uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Events from TimePad" || update.Message.Text == "/events"))
                         {
-
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
                             await Task.Delay(2000);
-
+                            // KeyBoardEvents();
                             rkm.OneTimeKeyboard = true;
                             rkm.Keyboard = new KeyboardButton[][]
 
                                 {
-                                        new KeyboardButton[]
-                                        {
-                                            new KeyboardButton("\uD83C\uDFA4"),
-                                            new KeyboardButton( "\uD83C\uDFAD"),
-                                            new KeyboardButton( "\uD83C\uDFC8")
-                                        },
+                                                            new KeyboardButton[]
+                                                            {
+                                                                new KeyboardButton("\uD83C\uDFA4"),
+                                                                new KeyboardButton( "\uD83C\uDFAD"),
+                                                                new KeyboardButton( "\uD83C\uDFC8")
+                                                            },
 
-                                        new KeyboardButton[]
-                                        {
-                                            new KeyboardButton( "\uD83C\uDFA8"),
-                                            new KeyboardButton( "Another"),
-                                           new KeyboardButton("\u27A1" + "Restart")
+                                                            new KeyboardButton[]
+                                                            {
+                                                                new KeyboardButton( "\uD83C\uDFA8"),
+                                                                new KeyboardButton( "Another"),
+                                                               new KeyboardButton("\u27A1" + "Restart")
 
-                                        }
+                                                            }
                                 };
                             await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/concerts" + " - \uD83C\uDFA4 Концерты" + "\n" + "\n" + "/theatres" + " - \uD83C\uDFAD Театры" + "\n" + "\n" + "/sport" + " - \uD83C\uDFC8 Спорт" + "\n" + "\n" + "/artsandculture" + " - \uD83C\uDFA8 Искусство и Культура" + "\n" + "\n" + "/another" + " - \u2728 Другое", false, false, 0, rkm);
 
@@ -193,6 +215,8 @@ namespace Telegram.Bot
 
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "/concerts" || update.Message.Text == "\uD83C\uDFA4"))
                         {
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
+                            await Task.Delay(1500);
                             for (int i = 0; i < 25; i++)
                             {
                                 if (account.values[i].categories[0].name == "Концерты")
@@ -213,17 +237,26 @@ namespace Telegram.Bot
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[con] + "\n" + "\n" + "Вид: " + categories[con] + "\n" + "\n" + urls[con]);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/concerts" + " - \uD83C\uDFA4 Концерты" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
                                 k = 0;
+                                k = 0;
+                                Array.Clear(eventname, 0, 25);
+                                Array.Clear(categories, 0, 25);
+                                Array.Clear(urls, 0, 25);
                             }
                             else
                             {
+                                await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
+                                await Task.Delay(1000);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                               // KeyBoardEvents();
                             }
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
 
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "/theatres" || update.Message.Text == "\uD83C\uDFAD"))
-                        {                            
+                        {
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
+                            await Task.Delay(1500);
                             for (int i = 0; i < 25; i++)
                             {
 
@@ -245,10 +278,16 @@ namespace Telegram.Bot
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[the] + "\n" + "\n" + "Вид: " + categories[the] + "\n" + "\n" + urls[the]);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/theatres" + " - \uD83C\uDFAD Театры" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
                                 k = 0;
+                                Array.Clear(eventname, 0, 25);
+                                Array.Clear(categories, 0, 25);
+                                Array.Clear(urls, 0, 25);
                             }
                             else
                             {
+                                await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
+                                await Task.Delay(1000);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                //KeyBoardEvents();
                             }
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
@@ -256,17 +295,10 @@ namespace Telegram.Bot
                         }
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "/sport"|| update.Message.Text=="\uD83C\uDFC8"))
                         {
-
-                            string[] eventname = new string[25];
-                            string[] categories = new string[25];
-                            string[] urls = new string[25];
-
-                            int k = 0;
-
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
+                            await Task.Delay(1500);
                             for (int i = 0; i < 25; i++)
-                            {
-
-
+                            {                                
                                 if (account.values[i].categories[0].name == "Спорт")
                                 {
                                     eventname[k] = account.values[i].name;
@@ -283,11 +315,18 @@ namespace Telegram.Bot
 
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[spo] + "\n" + "\n" + "Вид: " + categories[spo] + "\n" + "\n" + urls[spo]);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/sport" + " - \uD83C\uDFC8 Спорт" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                k = 0;
+                                Array.Clear(eventname, 0, 25);
+                                Array.Clear(categories, 0, 25);
+                                Array.Clear(urls, 0, 25);
                             }
 
                             else
                             {
+                                await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
+                                await Task.Delay(1000);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                //KeyBoardEvents();
                             }
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
@@ -297,17 +336,10 @@ namespace Telegram.Bot
 
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "/artsandculture" || update.Message.Text == "\uD83C\uDFA8"))
                         {
-
-                            string[] eventname = new string[25];
-                            string[] categories = new string[25];
-                            string[] urls = new string[25];
-
-                            int k = 0;
-
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
+                            await Task.Delay(1500);
                             for (int i = 0; i < 25; i++)
                             {
-
-
                                 if (account.values[i].categories[0].name == "Искусство и культура")
                                 {
                                     eventname[k] = account.values[i].name;
@@ -323,11 +355,77 @@ namespace Telegram.Bot
 
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[a] + "\n" + "\n" + "Вид: " + categories[a] + "\n" + "\n" + urls[a]);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/artsandculture" + " - \uD83C\uDFA8 Искусство и Культура" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                k = 0;
+                                Array.Clear(eventname, 0, 25);
+                                Array.Clear(categories, 0, 25);
+                                Array.Clear(urls, 0, 25);
                             }
 
                             else
                             {
+                                await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
+                                await Task.Delay(1000);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                //KeyBoardEvents();
+                            }
+
+                            Console.WriteLine("Message: {0}", update.Message.Text);
+
+                        }
+
+                        if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "/another" || update.Message.Text == "Another"))
+                        {
+                            await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
+                            await Task.Delay(1500);
+                            for (int i = 0; i < 25; i++)
+                            {
+                                if (account.values[i].categories[0].name != "Искусство и культура" && account.values[i].categories[0].name != "Спорт"
+                                    && account.values[i].categories[0].name != "Концерты" && account.values[i].categories[0].name != "Театры")
+                                {
+                                    eventname[k] = account.values[i].name;
+                                    categories[k] = account.values[i].categories[0].name;
+                                    urls[k] = account.values[i].url;
+                                    k = k + 1;
+                                }
+                            }
+                            if (k > 0)
+                            {
+                                Random another = new Random();
+                                int ano = another.Next(k - 1);
+
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[ano] + "\n" + "\n" + "Вид: " + categories[ano] + "\n" + "\n" + urls[ano]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/another" + " - \u2728 Другое" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                k = 0;
+                                Array.Clear(eventname, 0, 25);
+                                Array.Clear(categories, 0, 25);
+                                Array.Clear(urls, 0, 25);
+                            }
+
+                            else
+                            {
+                                await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
+                                await Task.Delay(1000);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                //KeyBoardEvents();
+                                rkm.OneTimeKeyboard = true;
+                                rkm.Keyboard = new KeyboardButton[][]
+
+                                    {
+                                                            new KeyboardButton[]
+                                                            {
+                                                                new KeyboardButton("\uD83C\uDFA4"),
+                                                                new KeyboardButton( "\uD83C\uDFAD"),
+                                                                new KeyboardButton( "\uD83C\uDFC8")
+                                                            },
+
+                                                            new KeyboardButton[]
+                                                            {
+                                                                new KeyboardButton( "\uD83C\uDFA8"),
+                                                                new KeyboardButton( "Another"),
+                                                               new KeyboardButton("\u27A1" + "Restart")
+
+                                                            }
+                                    };
                             }
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
@@ -336,9 +434,7 @@ namespace Telegram.Bot
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "\uD83D\uDCDA" + "Books" || update.Message.Text == "/books"))
                         {
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
-
                             await Task.Delay(2000);
-
                             await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/russian" + " - \uD83C\uDDF7 русская классика" + "\n" + "\n" + "/foreign" + " -  зарубежная классика" + "\n" + "\n" + "/fantastic" + " - \u2728 фантастика");
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
@@ -445,6 +541,7 @@ namespace Telegram.Bot
                             else
                             {
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                await Task.Delay(1000);
                             }
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
@@ -489,7 +586,7 @@ namespace Telegram.Bot
                             }
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
-
+                
 
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/thriller")
                         {
