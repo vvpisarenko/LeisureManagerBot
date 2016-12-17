@@ -49,97 +49,37 @@ namespace Telegram.Bot
             try
             {
                 var bot = await Bot.GetMeAsync();
+                Console.Title = bot.Username;
                 Console.WriteLine("Hello, my name is {0}", bot.Username);
             }
             catch { };
             var rkm = new ReplyKeyboardMarkup();
-            var pero = new Repository();
-            RootObject account = pero.Get();
+            var repo = new Repository();
+            RootObject account = repo.Get();
 
             var offset = 0;
 
 
             int z, x, y = 0;
 
-            string[] name = new string[100];
-            string[] description = new string[100];
-            string[] author = new string[100];
+            string[] name = new string[101];
+            string[] description = new string[101];
+            string[] author = new string[101];
 
             string[] filmname = new string[101];
             string[] filmdescription = new string[101];
             string[] genre = new string[101];
 
-            using (OleDbConnection connection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Книги.mdb;"))
-            {
+             
+            var db1 = new DBClassReading();
+            string[][] books = new string[3][];
+            DelBook dbBooksdDelegate =new DelBook(db1.Book);
+            books = dbBooksdDelegate(name, description, author, out z, out x,out y);
 
-                OleDbCommand c = new OleDbCommand("SELECT * FROM Зарубежная", connection);
-
-                connection.Open();
-                OleDbDataReader r = c.ExecuteReader();
-
-
-
-                name[0] = r.GetName(0) + "\t" + r.GetName(1) + "\t" + r.GetName(2);
-                int i = 1;
-                while (r.Read())
-                {
-                    name[i] = r[0].ToString();
-                    description[i] = r[1].ToString();
-                    author[i] = r[2].ToString();
-                    i = i + 1;
-                }
-
-                z = i;
-
-                OleDbCommand c1 = new OleDbCommand("SELECT * FROM Русская", connection);
-                OleDbDataReader r1 = c1.ExecuteReader();
-                while (r1.Read())
-                {
-                    name[i] = r1[0].ToString();
-                    description[i] = r1[1].ToString();
-                    author[i] = r1[2].ToString();
-                    i = i + 1;
-                }
-
-                x = i;
-
-                OleDbCommand c2 = new OleDbCommand("SELECT * FROM Фантастика", connection);
-                OleDbDataReader r2 = c2.ExecuteReader();
-                while (r2.Read())
-                {
-
-                    name[i] = r2[0].ToString();
-                    description[i] = r2[1].ToString();
-                    author[i] = r2[2].ToString();
-                    i = i + 1;
-                }
-
-                y = i;
-
-                connection.Close();
-            }
-
-            using (OleDbConnection connection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Фильмы.mdb;"))
-            {
-
-                OleDbCommand c = new OleDbCommand("SELECT * FROM Фильмы", connection);
-
-                connection.Open();
-                OleDbDataReader r = c.ExecuteReader();
-
-                filmname[0] = r.GetName(0) + "\t" + r.GetName(1) + "\t" + r.GetName(2);
-                int i = 1;
-                while (r.Read())
-                {
-                    filmname[i] = r[0].ToString();
-                    filmdescription[i] = r[1].ToString();
-                    genre[i] = r[2].ToString();
-                    i = i + 1;
-                }
-
-                connection.Close();
-            }
-            
+            string[][] films = new string[3][];
+            DelFilm dbFilmsDelegate = new DelFilm(db1.Film);
+            films = dbFilmsDelegate(filmname, filmdescription, genre);
+                       
             string[] eventname = new string[25];
             string[] categories = new string[25];
             string[] urls = new string[25];

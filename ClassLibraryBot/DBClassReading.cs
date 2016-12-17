@@ -11,12 +11,10 @@ namespace ClassLibraryBot
 
     public delegate string[][] DelFilm(string[] mas1, string[] mas2, string[] mas3);
 
-    class DBClassReading
+    public class DBClassReading
     {
         public string[][] Book(string[] mas1, string[] mas2, string[] mas3, out int x, out int y, out int z)
         {
-
-
             string[][] t = new string[3][];
 
             using (OleDbConnection connection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Книги.mdb;"))
@@ -27,9 +25,6 @@ namespace ClassLibraryBot
 
                 connection.Open();
                 OleDbDataReader r = c.ExecuteReader();
-
-
-
                 mas1[0] = r.GetName(0) + "\t" + r.GetName(1) + "\t" + r.GetName(2);
                 int i = 1;
                 while (r.Read())
@@ -117,4 +112,5 @@ namespace ClassLibraryBot
 
             return t;
         }
+    }
 }
