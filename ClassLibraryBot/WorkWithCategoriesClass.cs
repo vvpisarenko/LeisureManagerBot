@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryBot
 {
-   public class WorkWithCategoriesClass
+    public class WorkWithCategoriesClass
     {
         public void Circle(Event a, string s, out string[] mas1, out string[] mas2, out string[] mas3, out int k)
         {

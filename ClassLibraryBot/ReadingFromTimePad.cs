@@ -11,7 +11,7 @@ namespace ClassLibraryBot
     public class Repository
     {
         const string url = "https://api.timepad.ru/v1/events.json?limit=25&skip=0&cities=Москва";
-        
+
         public Event Get()
         {
             string str;
@@ -22,38 +22,36 @@ namespace ClassLibraryBot
                 var items = JsonConvert.DeserializeObject<Event>(JsonResult);
                 return items;
             }
-
-
         }
     }
 
-        public class PosterImage
-        {
-            public string default_url { get; set; }
-            public string uploadcare_url { get; set; }
-        }
+    public class PosterImage
+    {
+        public string default_url { get; set; }
+        public string uploadcare_url { get; set; }
+    }
 
-        public class Category
-        {
-            public int id { get; set; }
-            public string name { get; set; }
-        }
+    public class Category
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+    }
 
-        public class Value
-        {
-            public int id { get; set; }
-            public string starts_at { get; set; }
-            public string name { get; set; }
-            public string url { get; set; }
-            public PosterImage poster_image { get; set; }
-            public List<Category> categories { get; set; }
-            public string moderation_status { get; set; }
-        }
+    public class Value
+    {
+        public int id { get; set; }
+        public string starts_at { get; set; }
+        public string name { get; set; }
+        public string url { get; set; }
+        public PosterImage poster_image { get; set; }
+        public List<Category> categories { get; set; }
+        public string moderation_status { get; set; }
+    }
 
-        public class Event
-        {
-            public int total { get; set; }
-            public List<Value> values { get; set; }
-        }
-    
+    public class Event
+    {
+        public int total { get; set; }
+        public List<Value> values { get; set; }
+    }
+
 }

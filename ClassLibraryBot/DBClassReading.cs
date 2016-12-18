@@ -19,10 +19,7 @@ namespace ClassLibraryBot
 
             using (OleDbConnection connection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Книги.mdb;"))
             {
-
-
                 OleDbCommand c = new OleDbCommand("SELECT * FROM Зарубежная", connection);
-
                 connection.Open();
                 OleDbDataReader r = c.ExecuteReader();
                 mas1[0] = r.GetName(0) + "\t" + r.GetName(1) + "\t" + r.GetName(2);
@@ -70,20 +67,11 @@ namespace ClassLibraryBot
 
                 return t;
             }
-
-
         }
-
-
-
 
         public string[][] Film(string[] mas1, string[] mas2, string[] mas3)
         {
-
-
             string[][] t = new string[3][];
-
-
             using (OleDbConnection connection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Фильмы.mdb;"))
             {
 
@@ -102,7 +90,6 @@ namespace ClassLibraryBot
                     mas3[i] = r[2].ToString();
                     i = i + 1;
                 }
-
                 connection.Close();
             }
 
