@@ -12,14 +12,14 @@ namespace ClassLibraryBot
     {
         const string url = "https://api.timepad.ru/v1/events.json?limit=25&skip=0&cities=Москва";
         
-        public RootObject Get()
+        public Event Get()
         {
             string str;
             using (var webClient = new WebClient())
             {
                 str = webClient.DownloadString(url);
                 var JsonResult = Encoding.UTF8.GetString(Encoding.Default.GetBytes(str));
-                var items = JsonConvert.DeserializeObject<RootObject>(JsonResult);
+                var items = JsonConvert.DeserializeObject<Event>(JsonResult);
                 return items;
             }
 
@@ -50,7 +50,7 @@ namespace ClassLibraryBot
             public string moderation_status { get; set; }
         }
 
-        public class RootObject
+        public class Event
         {
             public int total { get; set; }
             public List<Value> values { get; set; }

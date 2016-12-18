@@ -42,5 +42,16 @@ namespace LeisureManagerBot.Properties {
                 return ((string)(this["ФильмыConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\\bin\\Debug\\Фильмы.mdb" +
+            "")]
+        public string ФильмыConnectionString1 {
+            get {
+                return ((string)(this["ФильмыConnectionString1"]));
+            }
+        }
     }
 }

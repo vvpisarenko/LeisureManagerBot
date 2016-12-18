@@ -13,30 +13,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 namespace Telegram.Bot
 {
     class Program
-    {
-        //static void KeyBoardEvents()
-        //{
-        //    var rkmev = new ReplyKeyboardMarkup();
-        //    rkmev.OneTimeKeyboard = true;
-        //    rkmev.Keyboard = new KeyboardButton[][]
-
-        //        {
-        //                                new KeyboardButton[]
-        //                                {
-        //                                    new KeyboardButton("\uD83C\uDFA4"),
-        //                                    new KeyboardButton( "\uD83C\uDFAD"),
-        //                                    new KeyboardButton( "\uD83C\uDFC8")
-        //                                },
-
-        //                                new KeyboardButton[]
-        //                                {
-        //                                    new KeyboardButton( "\uD83C\uDFA8"),
-        //                                    new KeyboardButton( "Another"),
-        //                                   new KeyboardButton("\u27A1" + "Restart")
-
-        //                                }
-        //        };
-        //}
+    {       
         static void Main(string[] args)
         {
            Run().Wait();
@@ -46,16 +23,17 @@ namespace Telegram.Bot
         static async Task Run()
         {
             var Bot = new TelegramBotClient("306835183:AAHQLsRrPzOeDfHhQvlOOYi0X5kRJke7ngg");
-           // try
-          //  {
+           try
+           {
                 var bot = await Bot.GetMeAsync();
                 Console.Title = bot.Username;
                 Console.WriteLine("Hello, my name is {0}", bot.Username);
-          //  }
-         //   catch { };
-            var rkm = new ReplyKeyboardMarkup();
+           }
+          catch { };
+            WorkWithCategoriesClass w = new WorkWithCategoriesClass();
+            KeyBoards kb = new KeyBoards();
             var repo = new Repository();
-            RootObject account = repo.Get();
+            Event account = repo.Get();
 
             var offset = 0;
 
@@ -90,34 +68,17 @@ namespace Telegram.Bot
             {
                 var updates = await Bot.GetUpdatesAsync(offset);
 
+                Console.WriteLine("Offset: "+offset);
+
                 foreach (var update in updates)
                 {
                     if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "/start" || update.Message.Text == "\u27A1" + "Restart"))
                     {
 
                         await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
-                        await Task.Delay(2000);
+                        await Task.Delay(2000);                                            
 
-                        rkm.OneTimeKeyboard = true;
-
-                        rkm.Keyboard = new KeyboardButton[][]
-
-                                {
-                                        new KeyboardButton[]
-                                        {
-                                            new KeyboardButton("\uD83C\uDFA5" + "Films"),
-                                            new KeyboardButton("\uD83D\uDCDA" + "Books")
-                                        },
-
-                                        new KeyboardButton[]
-                                        {
-                                           new KeyboardButton("\uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8"+"\n"+"Events from TimePad"),
-                                           new KeyboardButton("\u27A1" + "Restart")
-
-                                        }
-                                };
-
-                        await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Здравствуйте! \u263A Для продолжения выберите желаемый вариант проведения досуга, и бот предоставит вам его. \u2611 На ваш выбор - книги, фильмы или же различные мероприятия с TimePad. ", false, false, 0, rkm);
+                        await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Здравствуйте! \u263A Для продолжения выберите желаемый вариант проведения досуга, и бот предоставит вам его. \u2611 На ваш выбор - книги, фильмы или же различные мероприятия с TimePad. ", false, false, 0, kb.ShowKeyBoard1());
 
                         Console.WriteLine("Message: {0}", update.Message.Text);
                     }
@@ -128,28 +89,9 @@ namespace Telegram.Bot
                         {
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
                             await Task.Delay(2000);
-                            // KeyBoardEvents();
-                            rkm.OneTimeKeyboard = true;
-                            rkm.Keyboard = new KeyboardButton[][]
-
-                                {
-                                                            new KeyboardButton[]
-                                                            {
-                                                                new KeyboardButton("\uD83C\uDFA4"),
-                                                                new KeyboardButton( "\uD83C\uDFAD"),
-                                                                new KeyboardButton( "\uD83C\uDFC8")
-                                                            },
-
-                                                            new KeyboardButton[]
-                                                            {
-                                                                new KeyboardButton( "\uD83C\uDFA8"),
-                                                                new KeyboardButton( "Another"),
-                                                               new KeyboardButton("\u27A1" + "Restart")
-
-                                                            }
-                                };
-                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/concerts" + " - \uD83C\uDFA4 Концерты" + "\n" + "\n" + "/theatres" + " - \uD83C\uDFAD Театры" + "\n" + "\n" + "/sport" + " - \uD83C\uDFC8 Спорт" + "\n" + "\n" + "/artsandculture" + " - \uD83C\uDFA8 Искусство и Культура" + "\n" + "\n" + "/another" + " - \u2728 Другое", false, false, 0, rkm);
-
+                            kb.ShowKeyBoard2();
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/concerts" + " - \uD83C\uDFA4 Концерты" + "\n" + "\n" + "/theatres" + " - \uD83C\uDFAD Театры" + "\n" + "\n" + "/sport" + " - \uD83C\uDFC8 Спорт" + "\n" + "\n" + "/artsandculture" + " - \uD83C\uDFA8 Искусство и Культура" + "\n" + "\n" + "/another" + " - \u2728 Другое", false, false, 0, kb.ShowKeyBoard2());
+                           
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
 
@@ -157,27 +99,17 @@ namespace Telegram.Bot
                         {
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
                             await Task.Delay(1500);
-                            for (int i = 0; i < 25; i++)
-                            {
-                                if (account.values[i].categories[0].name == "Концерты")
-                                {
-                                    eventname[k] = account.values[i].name;
-                                    categories[k] = account.values[i].categories[0].name;
-                                    urls[k] = account.values[i].url;
-                                    k = k + 1;
-                                }
-                            }
-
+                            string str = "Концерты";
+                            w.Circle(account, str, out eventname, out categories, out urls, out k);
                             if (k > 0)
                             {
 
                                 Random concert = new Random();
                                 int con = concert.Next(k - 1);
-
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[con] + "\n" + "\n" + "Вид: " + categories[con] + "\n" + "\n" + urls[con]);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/concerts" + " - \uD83C\uDFA4 Концерты" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
-                                k = 0;
-                                
+                                kb.ShowKeyBoard2();
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/concerts" + " - \uD83C\uDFA4 Концерты" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu",false, false, 0, kb.ShowKeyBoard2());
+                                k = 0;                                
                                 Array.Clear(eventname, 0, 25);
                                 Array.Clear(categories, 0, 25);
                                 Array.Clear(urls, 0, 25);
@@ -186,8 +118,8 @@ namespace Telegram.Bot
                             {
                                 await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
                                 await Task.Delay(1000);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
-                               // KeyBoardEvents();
+                                kb.ShowKeyBoard2();
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu",false, false,0,kb.ShowKeyBoard2());
                             }
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
@@ -197,18 +129,8 @@ namespace Telegram.Bot
                         {
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
                             await Task.Delay(1500);
-                            for (int i = 0; i < 25; i++)
-                            {
-
-
-                                if (account.values[i].categories[0].name == "Театры")
-                                {
-                                    eventname[k] = account.values[i].name;
-                                    categories[k] = account.values[i].categories[0].name;
-                                    urls[k] = account.values[i].url;
-                                    k = k + 1;
-                                }
-                            }
+                            string str = "Театры";
+                            w.Circle(account, str, out eventname, out categories, out urls, out k);
                             if (k > 0)
                             {
 
@@ -216,7 +138,8 @@ namespace Telegram.Bot
                                 int the = theatre.Next(k - 1);
 
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[the] + "\n" + "\n" + "Вид: " + categories[the] + "\n" + "\n" + urls[the]);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/theatres" + " - \uD83C\uDFAD Театры" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                kb.ShowKeyBoard2();
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/theatres" + " - \uD83C\uDFAD Театры" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu",false,false,0, kb.ShowKeyBoard2());
                                 k = 0;
                                 Array.Clear(eventname, 0, 25);
                                 Array.Clear(categories, 0, 25);
@@ -226,8 +149,9 @@ namespace Telegram.Bot
                             {
                                 await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
                                 await Task.Delay(1000);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
-                                //KeyBoardEvents();
+                                kb.ShowKeyBoard2();
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu", false, false,0, kb.ShowKeyBoard2());
+                               
                             }
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
@@ -237,16 +161,8 @@ namespace Telegram.Bot
                         {
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
                             await Task.Delay(1500);
-                            for (int i = 0; i < 25; i++)
-                            {                                
-                                if (account.values[i].categories[0].name == "Спорт")
-                                {
-                                    eventname[k] = account.values[i].name;
-                                    categories[k] = account.values[i].categories[0].name;
-                                    urls[k] = account.values[i].url;
-                                    k = k + 1;
-                                }
-                            }
+                            string str = "Спорт";
+                            w.Circle(account, str, out eventname, out categories, out urls, out k);
 
                             if (k > 0)
                             {
@@ -254,7 +170,8 @@ namespace Telegram.Bot
                                 int spo = sport.Next(k - 1);
 
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[spo] + "\n" + "\n" + "Вид: " + categories[spo] + "\n" + "\n" + urls[spo]);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/sport" + " - \uD83C\uDFC8 Спорт" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                kb.ShowKeyBoard2();
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/sport" + " - \uD83C\uDFC8 Спорт" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu",false,false,0, kb.ShowKeyBoard2());
                                 k = 0;
                                 Array.Clear(eventname, 0, 25);
                                 Array.Clear(categories, 0, 25);
@@ -265,8 +182,9 @@ namespace Telegram.Bot
                             {
                                 await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
                                 await Task.Delay(1000);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
-                                //KeyBoardEvents();
+                                kb.ShowKeyBoard2();
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu",false,false,0, kb.ShowKeyBoard2());
+                               
                             }
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
@@ -278,23 +196,16 @@ namespace Telegram.Bot
                         {
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
                             await Task.Delay(1500);
-                            for (int i = 0; i < 25; i++)
-                            {
-                                if (account.values[i].categories[0].name == "Искусство и культура")
-                                {
-                                    eventname[k] = account.values[i].name;
-                                    categories[k] = account.values[i].categories[0].name;
-                                    urls[k] = account.values[i].url;
-                                    k = k + 1;
-                                }
-                            }
+                            string str = "Искусство и культура";
+                            w.Circle(account, str, out eventname, out categories, out urls, out k);
                             if (k > 0)
                             {
                                 Random arts = new Random();
                                 int a = arts.Next(k - 1);
 
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[a] + "\n" + "\n" + "Вид: " + categories[a] + "\n" + "\n" + urls[a]);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/artsandculture" + " - \uD83C\uDFA8 Искусство и Культура" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                kb.ShowKeyBoard2();
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/artsandculture" + " - \uD83C\uDFA8 Искусство и Культура" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu",false,false,0, kb.ShowKeyBoard2());
                                 k = 0;
                                 Array.Clear(eventname, 0, 25);
                                 Array.Clear(categories, 0, 25);
@@ -305,8 +216,9 @@ namespace Telegram.Bot
                             {
                                 await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
                                 await Task.Delay(1000);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
-                                //KeyBoardEvents();
+                                kb.ShowKeyBoard2();
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu",false,false,0, kb.ShowKeyBoard2());
+                               
                             }
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
@@ -345,27 +257,9 @@ namespace Telegram.Bot
                             {
                                 await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
                                 await Task.Delay(1000);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu");
-                                //KeyBoardEvents();
-                                rkm.OneTimeKeyboard = true;
-                                rkm.Keyboard = new KeyboardButton[][]
-
-                                    {
-                                                            new KeyboardButton[]
-                                                            {
-                                                                new KeyboardButton("\uD83C\uDFA4"),
-                                                                new KeyboardButton( "\uD83C\uDFAD"),
-                                                                new KeyboardButton( "\uD83C\uDFC8")
-                                                            },
-
-                                                            new KeyboardButton[]
-                                                            {
-                                                                new KeyboardButton( "\uD83C\uDFA8"),
-                                                                new KeyboardButton( "Another"),
-                                                               new KeyboardButton("\u27A1" + "Restart")
-
-                                                            }
-                                    };
+                                kb.ShowKeyBoard2();
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Ничего не найдено" + "\n" + "\n" + "/start - \u27A1 return to main menu",false,false,0, kb.ShowKeyBoard2());
+                               
                             }
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
@@ -454,17 +348,10 @@ namespace Telegram.Bot
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
                             await Task.Delay(2000);
-                            for (int i = 1; i < 101; i++)
-                            {
-                                if (genre[i].Contains("драма") == true || genre[i].Contains("Драма") == true)
-                                {
-                                    filmname1[q] = filmname[i];
-                                    genre1[q] = genre[i];
-                                    filmdescription1[q] = filmdescription[i];
-                                    q = q + 1;
-                                }
-
-                            }
+                            string string1 = "Драма";
+                            string string2 = "драма";
+                            w.CircleForFilms(string1,string2,genre, filmdescription,filmname, out filmname1, out filmdescription1, out genre1, out q);
+                           
 
                             if (q > 0)
                             {
@@ -493,19 +380,10 @@ namespace Telegram.Bot
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
                             await Task.Delay(2000);
-
-                            for (int i = 1; i < 101; i++)
-                            {
-                                if (genre[i].Contains("Комедия") == true || genre[i].Contains("комедия") == true)
-                                {
-                                    filmname1[q] = filmname[i];
-                                    genre1[q] = genre[i];
-                                    filmdescription1[q] = filmdescription[i];
-                                    q = q + 1;
-                                }
-
-                            }
-
+                            string string1 = "Комедия";
+                            string string2 = "комедия";
+                            w.CircleForFilms(string1, string2, genre, filmdescription, filmname, out filmname1, out filmdescription1, out genre1, out q);
+                           
                             if (q > 0)
                             {
                                 Random comedy = new Random();
@@ -534,19 +412,10 @@ namespace Telegram.Bot
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
                             await Task.Delay(2000);
-
-                            for (int i = 1; i < 101; i++)
-                            {
-                                if (genre[i].Contains("Боевик") == true || genre[i].Contains("боевик") == true || genre[i].Contains("триллер") == true || genre[i].Contains("Триллер") == true)
-                                {
-                                    filmname1[q] = filmname[i];
-                                    genre1[q] = genre[i];
-                                    filmdescription1[q] = filmdescription[i];
-                                    q = q + 1;
-                                }
-
-                            }
-
+                            string string1 = "боевик";
+                            string string2 = "триллер";
+                            w.CircleForFilms(string1, string2, genre, filmdescription, filmname, out filmname1, out filmdescription1, out genre1, out q);
+                            
                             if (q > 0)
                             {
                                 Random thriller = new Random();
