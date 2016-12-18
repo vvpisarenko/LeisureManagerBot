@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryBot
 {
-    public delegate string[][] DelBook(string[] mas1, string[] mas2, string[] mas3, out int x, out int y, out int z);
+    public delegate string[][] DelBook(string[] mas1, string[] mas2, string[] mas3, out int z, out int x, out int y);
 
     public delegate string[][] DelFilm(string[] mas1, string[] mas2, string[] mas3);
 
     public class DBClassReading
     {
-        public string[][] Book(string[] mas1, string[] mas2, string[] mas3, out int x, out int y, out int z)
+        public string[][] Book(string[] mas1, string[] mas2, string[] mas3, out int z, out int x, out int y)
         {
             string[][] t = new string[3][];
 

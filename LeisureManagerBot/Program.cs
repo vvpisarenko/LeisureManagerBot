@@ -14,11 +14,6 @@ namespace Telegram.Bot
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-           Run().Wait();
-
-        }
         //static void KeyBoardEvents()
         //{
         //    var rkmev = new ReplyKeyboardMarkup();
@@ -42,17 +37,22 @@ namespace Telegram.Bot
         //                                }
         //        };
         //}
+        static void Main(string[] args)
+        {
+           Run().Wait();
+
+        }
 
         static async Task Run()
         {
             var Bot = new TelegramBotClient("306835183:AAHQLsRrPzOeDfHhQvlOOYi0X5kRJke7ngg");
-            try
-            {
+           // try
+          //  {
                 var bot = await Bot.GetMeAsync();
                 Console.Title = bot.Username;
                 Console.WriteLine("Hello, my name is {0}", bot.Username);
-            }
-            catch { };
+          //  }
+         //   catch { };
             var rkm = new ReplyKeyboardMarkup();
             var repo = new Repository();
             RootObject account = repo.Get();
