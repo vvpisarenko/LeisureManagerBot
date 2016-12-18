@@ -434,7 +434,7 @@ namespace Telegram.Bot
                             && update.Message.Text != "/books" && update.Message.Text != "\uD83D\uDCDA" + "Books" && update.Message.Text != "\uD83C\uDFA5" + "Films"
                             && update.Message.Text != "/films" && update.Message.Text != "/concerts" && update.Message.Text != "\uD83C\uDFA4" && update.Message.Text != "\uD83C\uDFA8" && update.Message.Text != "\uD83C\uDFA4"
                             && update.Message.Text != "\uD83C\uDFC8" && update.Message.Text != " / theatres" && update.Message.Text != "/sport"
-                            && update.Message.Text != "/artsandculture" && update.Message.Text != "/another" && update.Message.Text != "/thriller" && update.Message.Text != "/drama"
+                            && update.Message.Text != "/artsandculture" && update.Message.Text != "/another" && update.Message.Text != "Another" && update.Message.Text != "/thriller" && update.Message.Text != "/drama"
                             && update.Message.Text != "/comedy" && update.Message.Text != "/anothergenre" && update.Message.Text != "/russian" && update.Message.Text != "/foreign"
                             && update.Message.Text != "/fantastic")
                         {
