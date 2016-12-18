@@ -177,7 +177,7 @@ namespace Telegram.Bot
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Категория: " + eventname[con] + "\n" + "\n" + "Вид: " + categories[con] + "\n" + "\n" + urls[con]);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/concerts" + " - \uD83C\uDFA4 Концерты" + "\n" + "\n" + "/events - \uD83C\uDFAD \uD83C\uDFA8 \uD83C\uDFA4 \uD83C\uDFC8" + "\n" + "Choose another events from TimePad" + "\n" + "\n" + "/start - \u27A1 return to main menu");
                                 k = 0;
-                                k = 0;
+                                
                                 Array.Clear(eventname, 0, 25);
                                 Array.Clear(categories, 0, 25);
                                 Array.Clear(urls, 0, 25);
@@ -432,6 +432,7 @@ namespace Telegram.Bot
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
+
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && (update.Message.Text == "\uD83C\uDFA5" + "Films" || update.Message.Text == "/films"))
                         {
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
@@ -442,19 +443,17 @@ namespace Telegram.Bot
 
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
+
+                        string[] filmname1 = new string[101];
+                        string[] genre1 = new string[101];
+                        string[] filmdescription1 = new string[101];
+                        int q = 0;
+
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/drama")
                         {
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
                             await Task.Delay(2000);
-
-
-                            string[] filmname1 = new string[101];
-                            string[] genre1 = new string[101];
-                            string[] filmdescription1 = new string[101];
-
-                            int q = 0;
-
                             for (int i = 1; i < 101; i++)
                             {
                                 if (genre[i].Contains("драма") == true || genre[i].Contains("Драма") == true)
@@ -471,11 +470,14 @@ namespace Telegram.Bot
                             {
                                 Random drama = new Random();
                                 int d = drama.Next(q - 1);
-
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + filmname1[d]);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Жанр: " + genre1[d]);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + filmdescription1[d]);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/drama - \uD83D\uDE22 choose another drama" + "\n" + "\n" + "/films - \uD83C\uDFA5 choose another films" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                q = 0;
+                                Array.Clear(filmname1, 0, 101);
+                                Array.Clear(filmdescription1, 0, 101);
+                                Array.Clear(genre1, 0, 101);
                             }
 
                             else
@@ -491,19 +493,14 @@ namespace Telegram.Bot
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
                             await Task.Delay(2000);
-                            string[] filmname2 = new string[101];
-                            string[] genre2 = new string[101];
-                            string[] filmdescription2 = new string[101];
-
-                            int q = 0;
 
                             for (int i = 1; i < 101; i++)
                             {
                                 if (genre[i].Contains("Комедия") == true || genre[i].Contains("комедия") == true)
                                 {
-                                    filmname2[q] = filmname[i];
-                                    genre2[q] = genre[i];
-                                    filmdescription2[q] = filmdescription[i];
+                                    filmname1[q] = filmname[i];
+                                    genre1[q] = genre[i];
+                                    filmdescription1[q] = filmdescription[i];
                                     q = q + 1;
                                 }
 
@@ -514,10 +511,14 @@ namespace Telegram.Bot
                                 Random comedy = new Random();
                                 int c = comedy.Next(q - 1);
 
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + filmname2[c]);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Жанр: " + genre2[c]);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + filmdescription2[c]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + filmname1[c]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Жанр: " + genre1[c]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + filmdescription1[c]);
                                 await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/comedy - \uD83D\uDE06 choose another comedy" + "\n" + "\n" + "/films - \uD83C\uDFA5 choose another films" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                q = 0;
+                                Array.Clear(filmname1, 0, 101);
+                                Array.Clear(filmdescription1, 0, 101);
+                                Array.Clear(genre1, 0, 101);
                             }
 
                             else
@@ -526,7 +527,7 @@ namespace Telegram.Bot
                             }
                             Console.WriteLine("Message: {0}", update.Message.Text);
                         }
-                
+
 
                         if (update.Message.Type == Types.Enums.MessageType.TextMessage && update.Message.Text == "/thriller")
                         {
@@ -534,19 +535,13 @@ namespace Telegram.Bot
 
                             await Task.Delay(2000);
 
-                            string[] filmname3 = new string[101];
-                            string[] genre3 = new string[101];
-                            string[] filmdescription3 = new string[101];
-
-                            int q = 0;
-
                             for (int i = 1; i < 101; i++)
                             {
                                 if (genre[i].Contains("Боевик") == true || genre[i].Contains("боевик") == true || genre[i].Contains("триллер") == true || genre[i].Contains("Триллер") == true)
                                 {
-                                    filmname3[q] = filmname[i];
-                                    genre3[q] = genre[i];
-                                    filmdescription3[q] = filmdescription[i];
+                                    filmname1[q] = filmname[i];
+                                    genre1[q] = genre[i];
+                                    filmdescription1[q] = filmdescription[i];
                                     q = q + 1;
                                 }
 
@@ -557,10 +552,14 @@ namespace Telegram.Bot
                                 Random thriller = new Random();
                                 int t = thriller.Next(q - 1);
 
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + filmname3[t]);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Жанр: " + genre3[t]);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + filmdescription3[t]);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/thriller - \uD83D\uDCA3 choose another thriller" + "\n" + "\n" + "/films - \uD83C\uDFA5 choose another films" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + filmname1[t]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Жанр: " + genre1[t]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + filmdescription1[t]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/thriller - \uD83D\uDCA3 choose another thriller" + "\n" + "\n" + "/films - \uD83C\uDFA5 choose another films" + "\n" + "\n" + "/start -\u27A1 return to main menu");
+                            q = 0;
+                                Array.Clear(filmname1, 0, 101);
+                                Array.Clear(filmdescription1, 0, 101);
+                                Array.Clear(genre1, 0, 101);
                             }
 
                             else
@@ -577,21 +576,14 @@ namespace Telegram.Bot
                             await Bot.SendChatActionAsync(update.Message.Chat.Id, Types.Enums.ChatAction.Typing);
 
                             await Task.Delay(2000);
-
-                            string[] filmname4 = new string[101];
-                            string[] genre4 = new string[101];
-                            string[] filmdescription4 = new string[101];
-
-                            int q = 0;
-
                             for (int i = 1; i < 101; i++)
                             {
                                 if (genre[i].Contains("Комедия") != true && genre[i].Contains("комедия") != true && genre[i].Contains("Боевик") != true && genre[i].Contains("боевик") != true
-                                    && genre[i].Contains("драма") != true && genre[i].Contains("Драма") != true && genre[i].Contains("триллер") != true && genre[i].Contains("Триллер") != true)
+                                && genre[i].Contains("драма") != true && genre[i].Contains("Драма") != true && genre[i].Contains("триллер") != true && genre[i].Contains("Триллер") != true)
                                 {
-                                    filmname4[q] = filmname[i];
-                                    genre4[q] = genre[i];
-                                    filmdescription4[q] = filmdescription[i];
+                                    filmname1[q] = filmname[i];
+                                    genre1[q] = genre[i];
+                                    filmdescription1[q] = filmdescription[i];
                                     q = q + 1;
                                 }
 
@@ -602,10 +594,14 @@ namespace Telegram.Bot
                                 Random anothergenre = new Random();
                                 int a = anothergenre.Next(q - 1);
 
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + filmname4[a]);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Жанр: " + genre4[a]);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + filmdescription4[a]);
-                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/anothergenre -  choose another anothergenre" + "\n" + "\n" + "/films - \uD83C\uDFA5 choose another films" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Название: " + filmname1[a]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Жанр: " + genre1[a]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Описание: " + filmdescription1[a]);
+                                await Bot.SendTextMessageAsync(update.Message.Chat.Id, "/anothergenre - choose another anothergenre" + "\n" + "\n" + "/films - \uD83C\uDFA5 choose another films" + "\n" + "\n" + "/start - \u27A1 return to main menu");
+                                q = 0;
+                                Array.Clear(filmname1, 0, 101);
+                                Array.Clear(filmdescription1, 0, 101);
+                                Array.Clear(genre1, 0, 101);
                             }
 
                             else
